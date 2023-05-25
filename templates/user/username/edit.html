@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit {{ user.username }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form method="post" action="/api/user/edit" enctype="multipart/form-data">
+          <input type="hidden" name="username" value="{{ user.username }}" />
+
+          <input required name="name" value="{{ user.name }}" placeholder="Name" maxlength={{ name_max_char_count }} />
+          <textarea rows=5 required name="description" placeholder="Description" maxlength={{ description_max_char_count }}>{{ user.description }}</textarea>
+
+          <div class="checkbox-box">
+            <label for="pfp">Profile picture</label>
+            <input type="file" name="pfp" placeholder="Profile picture" />
+          </div>
+
+          <input type="submit" value="Save" />
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

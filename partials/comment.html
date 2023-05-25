@@ -1,0 +1,56 @@
+<div id="{{ comment.id }}" class="comment">
+  <div class="posted-by">
+    {% if comment.posted_by %}
+      <img class="mini-pfp" src="/files/{{ comment.posted_by.mini_pfp }}" />
+    {% endif %}
+
+    <div class="posted-by-info">
+      {% if comment.posted_by %}
+        <a href="/user/{{ comment.posted_by.username }}">{{ comment.posted_by.username }}</a>
+      {% else %}
+        <span class="author">Anonymous</span>
+      {% endif %}
+
+      <span class="author">{{ comment.posted_at }}</span>
+
+      {% if comment.modified_at %}
+        <span class="author">Edited</span>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if comment.reply %}
+    <a href="/post/{{ comment.post_id }}?start_id={{ comment.reply.comment_id }}#{{ comment.reply.comment_id }}">
+      -->
+      {% if comment.reply.posted_by %}
+        {{ comment.reply.posted_by.username }}
+      {% else %}
+        Anonymous
+      {% endif %}
+    </a>
+  {% endif %}
+
+  <span class="content">
+    {{ comment.content }}
+  </span>
+
+  <div class="links">
+    <a href="/post/{{ comment.post_id }}?start_id={{ comment.id }}#{{ comment.id }}">Link</a>
+
+    {% if comment.is_repliable %}
+      <a href="/comment/create?post_id={{ comment.post_id }}&reply_to_comment_id={{ comment.id }}">Reply</a>
+    {% endif %}
+
+    {% if comment.is_editable %}
+      <a href="/comment/{{ comment.id }}/edit">Edit</a>
+    {% endif %}
+
+    {% if comment.is_anonymisable %}
+      <a href="/comment/{{ comment.id }}/anonymise">Anonymise</a>
+    {% endif %}
+
+    {% if comment.is_deletable %}
+      <a href="/comment/{{ comment.id }}/delete">Delete</a>
+    {% endif %}
+  </div>
+</div>

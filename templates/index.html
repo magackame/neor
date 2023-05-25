@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>neor</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form action="/">
+          <div class="search-box">
+            <input type="hidden" name="limit" value="{{ limit }}" />
+            <input name="query" value="{{ query }}" placeholder="Title" />
+
+            <input type="submit" value="Search" />
+          </div>
+        </form>
+
+        {% for post in posts %}
+          {% include 'post_preview' %}
+        {% endfor %}
+
+        <div class="page">
+          {% if max_id %}
+            {% if prev_start_id <= max_id %}
+              <a href="?direction=backwards&start_id={{ prev_start_id }}&limit={{ limit }}&query={{ query }}">Newer</a>
+            {% else %}
+              <span></span>
+            {% endif %}
+          {% else %}
+            Nothing found!
+          {% endif %}
+
+          {% if min_id %}
+            {% if next_start_id >= min_id %}
+              <a href="?direction=forwards&start_id={{ next_start_id }}&limit={{ limit }}&query={{ query }}">Older</a>
+            {% else %}
+              <span></span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

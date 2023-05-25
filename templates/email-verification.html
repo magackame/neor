@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Email Verification</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form method="post" action="/api/email-verification">
+          <input required name="code" placeholder="Code" minlength={{ code_char_count }} maxlength={{ code_char_count }} />
+
+          <input type="submit" value="Verify" />
+
+          {% if error %}
+            <span class="error-box">
+              {{ error }}
+            </span>
+          {% endif %}
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

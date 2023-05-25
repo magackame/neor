@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anonymise {{ post.title }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        {% include 'post_preview' %}
+
+        <span class="warning-box">
+          <div class="content">
+            <p>
+              If you anonymise the post you won't be able to edit it
+              or to request its deletion later
+            </p>
+
+            <p>
+              It will disappear from your posts and will show up as
+              made by <code>Anonymous</code>
+            </p>
+          </div >
+        </span>
+
+        <span>
+          Input post title to confirm
+        </span>
+
+        <form method="post" action="/api/post/anonymise">
+          <input type="hidden" name="post_id" value="{{ post.id }}" />
+
+          <input required name="confirm" placeholder="{{ post.title }}" maxlength={{ title_max_char_count }} />
+
+          <input type="submit" value="Confirm" />
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

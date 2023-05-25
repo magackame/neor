@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>New Comment</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form method="post" action="/api/comment/edit">
+          <input type="hidden" name="id" value="{{ comment.id }}" />
+
+          <textarea rows=5 required name="content" placeholder="Content" maxlength={{ content_max_char_count }}>{{ comment.content }}</textarea>
+
+          <input type="submit" value="Save" />
+
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

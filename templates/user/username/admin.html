@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin {{ user.username }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form method="post" action="/api/user/admin">
+          <input type="hidden" name="username" value="{{ user.username }}" />
+
+          <div class="checkbox-box">
+            <input type="checkbox" name="reset_name" />
+            <label for="reset_name">Reset name</label>
+          </div>
+
+          <div class="checkbox-box">
+            <input type="checkbox" name="reset_description" />
+            <label for="reset_description">Reset description</label>
+          </div>
+
+          <div class="checkbox-box">
+            <input type="checkbox" name="reset_pfp" />
+            <label for="reset_pfp">Reset profile picture</label>
+          </div>
+
+          <select name="role">
+            <option value="Mod"{% if user.role == 'Mod' %}selected{% endif %}>Mod</option>
+            <option value="Member"{% if user.role == 'Member' %}selected{% endif %}>Member</option>
+            <option value="Banned"{% if user.role == 'Banned' %}selected{% endif %}>Banned</option>
+          </select>
+
+          <input type="submit" value="Apply" />
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+pub mod comment;
+pub mod email_verification;
+pub mod files;
+pub mod index;
+pub mod not_found;
+pub mod password_change;
+pub mod password_reset;
+pub mod post;
+pub mod sign_in;
+pub mod sign_out;
+pub mod sign_up;
+pub mod style;
+pub mod switch_theme;
+pub mod tag;
+pub mod user;

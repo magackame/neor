@@ -1,0 +1,8 @@
+export PORT=80
+
+export DOMAIN=localhost
+export EMAIL_FROM=neor@$DOMAIN
+export EMAIL_PASSWORD=root
+export EMAIL_RELAY=$DOMAIN
+
+export DATABASE_URL=mysql://root:root@localhost:3306/neor

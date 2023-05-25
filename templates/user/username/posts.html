@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ username }} posts</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <h1><a href="/user/{{ username }}">{{ username }}</a> posts</h1>
+        {% for post in posts %}
+          {% include 'post_preview' %}
+        {% endfor %}
+
+        <div class="page">
+          {% if newer_page %}
+            <a href="?page={{ newer_page }}">Newer</a>
+          {% endif %}
+
+          {% if current_page == 0 %}
+            <span>The End</span>
+          {% else %}
+            <span>{{ current_page }} / {{ max_page }}</span>
+          {% endif %}
+
+          {% if older_page %}
+            <a href="?page={{ older_page }}">Older</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

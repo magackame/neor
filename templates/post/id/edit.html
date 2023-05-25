@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit {{ post.title }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form method="post" action="/api/post/edit">
+          <input type="hidden" name="id" value="{{ post.id }}" />
+
+          <input required name="title" value="{{ post.title }}" placeholder="Title" maxlength={{ title_max_char_count }} />
+          <textarea rows=5 required name="description" placeholder="Description" maxlength={{ description_max_char_count }}>{{ post.description }}</textarea>
+          <input required name="tags" value="{{ post.tags | join: " " }}" placeholder="Tags (Space separeted)" maxlength={{ tags_max_char_count }} />
+
+          <textarea rows=5 required name="content" placeholder="Content" maxlength={{ content_max_char_count }}>{{ post.content }}</textarea>
+
+          <input type="submit" value="Save" />
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ user.username }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <div class="links">
+          {% if user.is_editable %}
+            <a href="/user/{{ user.username }}/edit">Edit</a>
+          {% endif %}
+
+          {% if user.is_sign_outable %}
+            <a href="/sign-out">Sign Out</a>
+          {% endif %}
+
+          {% if user.is_adminable %}
+            <a href="/user/{{ user.username }}/admin">Admin</a>
+          {% endif %}
+        </div>
+
+        <div class="posted-by">
+          <img class="pfp" src="/files/{{ user.pfp }}" />
+
+          <div class="posted-by-info">
+            <a href="/user/{{ user.username }}">{{ user.username }}</a>
+            <span style="margin-bottom: 1rem;" class="author">{{ user.name }}</span>
+            <div style="margin-bottom: 0.5rem;">
+              <span class="tag">{{ user.role }}</span>
+            </div>
+            <span class="author">Joined {{ user.joined_at }}</span>
+          </div>
+
+        </div>
+
+        <span class="description">{{ user.description }}</span>
+
+        <div class="links">
+          <a href="/user/{{ user.username }}?display=posts&limit={{ limit }}">Posts</a>
+          <a href="/user/{{ user.username }}?display=comments&limit={{ limit }}">Comments</a>
+        </div>
+
+        {% if display == 'posts' %}
+          {% for post in posts %}
+            {% include 'post_preview' %}
+          {% endfor %}
+        {% else if display == 'comments' %}
+          {% for comment in comments %}
+            {% include 'comment' %}
+          {% endfor %}
+        {% endif %}
+
+        <div class="page">
+          {% if max_id %}
+            {% if prev_start_id <= max_id %}
+              <a href="?display={{ display }}&direction=backwards&start_id={{ prev_start_id }}&limit={{ limit }}">Newer</a>
+            {% else %}
+              <span></span>
+            {% endif %}
+          {% else %}
+            This user has no publications yet
+          {% endif %}
+
+          {% if min_id %}
+            {% if next_start_id >= min_id %}
+              <a href="?display={{ display }}&direction=forwards&start_id={{ next_start_id }}&limit={{ limit }}">Older</a>
+            {% else %}
+              <span></span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

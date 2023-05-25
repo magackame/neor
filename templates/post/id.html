@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ post.title }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <div class="links">
+          {% if post.is_editable %}
+            <a href="/post/{{ post.id }}/edit">Edit</a>
+          {% endif %}
+
+          {% if post.is_anonymisable %}
+            <a href="/post/{{ post.id }}/anonymise">Anonymise</a>
+          {% endif %}
+
+          {% if post.is_deletable %}
+            <a href="/post/{{ post.id }}/delete">Delete</a>
+          {% endif %}
+        </div>
+
+        {% include 'post_preview' %}
+
+        {% if post.modified_at %}
+          <span class="author">Edited</span>
+        {% endif %}
+
+        <div class="content">
+          {{ post.content }}
+        </div>
+
+        <a href="#comments">
+          <h1 id="comments">Comments</h1>
+        </a>
+
+        {% if post.is_commentable %}
+          <a href="/comment/create?post_id={{ post.id }}">Comment</a>
+        {% endif %}
+
+        {% for comment in comments %}
+          {% include 'comment' %}
+        {% endfor %}
+
+        <div class="page">
+          {% if min_id %}
+            {% if prev_start_id >= min_id %}
+              <a href="/post/{{ post.id }}?direction=backwards&start_id={{ prev_start_id }}&limit={{ limit }}#comments">Older</a>
+            {% else %}
+              <span></span>
+            {% endif %}
+          {% else %}
+            Be the first one to comment!
+          {% endif %}
+
+          {% if max_id %}
+            {% if next_start_id <= max_id %}
+              <a href="/post/{{ post.id }}?direction=forwards&start_id={{ next_start_id }}&limit={{ limit }}#comments">Newer</a>
+            {% else %}
+              <span></span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

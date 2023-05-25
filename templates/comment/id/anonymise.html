@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anonymise {{ comment.posted_by.username }}'s comment</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        {% include 'comment' %}
+
+        <span class="warning-box">
+          <div class="content">
+            <p>
+              If you anonymise the comment you won't be able to edit it
+              or to request its deletion later
+            </p>
+
+            <p>
+              It will disappear from your comments and will show up as
+              made by <code>Anonymous</code>
+            </p>
+          </div >
+        </span>
+
+        <span>
+          Input the commenter's username to confirm
+        </span>
+
+        <form method="post" action="/api/comment/anonymise">
+          <input type="hidden" name="comment_id" value="{{ comment.id }}" />
+
+          <input required name="confirm" placeholder="{{ comment.posted_by.username }}" maxlength={{ username_max_char_count }} />
+
+          <input type="submit" value="Confirm" />
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

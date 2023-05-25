@@ -1,0 +1,31 @@
+[package]
+name = "neor"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1", features = [ "full" ] }
+
+actix-web = "4"
+actix-files = "0.6.2"
+actix-multipart = "0.6.0"
+
+liquid = "0.26.1"
+markdown = "1.0.0-alpha.9"
+
+sqlx = { version = "0.6", features = [ "runtime-tokio-rustls", "mysql", "chrono" ] }
+serde = { version = "1", features = [ "derive" ] }
+chrono = "0.4.24"
+argon2 = "0.5.0"
+futures = "0.3.27"
+uuid = { version = "1.3.0", features = [ "v4", "fast-rng", "macro-diagnostics" ] }
+rand = "0.8.5"
+lettre = { version = "0.10", default-features = false, features = [ "tokio1-rustls-tls", "builder", "smtp-transport" ] } 
+urlencoding = "2.1.2"
+
+thiserror = "1"
+regex = "1.8.1"
+lazy_static = "1.4.0"
+dotenvy = "0.15.7"

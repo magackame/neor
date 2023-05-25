@@ -1,0 +1,54 @@
+{% assign username = 'Anonymous' %}
+
+{% if comment.posted_by %}
+  {% assign username = comment.posted_by.username %}
+{% endif %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anonymise {{ username }}'s comment</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        {% include 'comment' %}
+
+        <span class="warning-box">
+          <span class="content">
+            Deleted comments cannot be restored. Do this only
+            to remove junk or illegal/inappropriate content
+          </span>
+        </span>
+
+        <span>
+          Input the commenter's username to confirm
+        </span>
+
+        <form method="post" action="/api/comment/delete">
+          <input type="hidden" name="comment_id" value="{{ comment.id }}" />
+
+          <input required name="confirm" placeholder="{{ username }}" maxlength={{ username_max_char_count }} />
+
+          <input type="submit" value="Confirm" />
+        </form>
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

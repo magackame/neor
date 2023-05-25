@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign In</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <form method="post" action="/api/sign-in">
+          <input required type="email" name="email" placeholder="Email" maxlength={{ email_max_char_count }} />
+          <input required type="password" name="password" placeholder="Password" maxlength={{ password_max_char_count }} />
+
+          <div class="checkbox-box">
+            <input type="checkbox" name="remember_me" />
+            <label for="remember_me">Remember me</label>
+          </div>
+
+          {% if back %}
+            <input type="hidden" name="back" value="{{ back }}" />
+          {% endif %}
+
+          <input type="submit" value="Sign In" />
+
+          <a href="/sign-up">Sign Up</a>
+          <a href="/password-reset">Reset password</a>
+        </form>
+
+        {% if message %}
+          <span>{{ message }}</span>
+        {% endif %}
+
+        {% if error %}
+          <span class="error-box">
+            {{ error }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

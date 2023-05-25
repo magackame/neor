@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ tag }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <div id="center">
+      {% include 'nav' %}
+
+      <div id="main">
+        <h1>#{{ tag }}</h1>
+
+        {% for post in posts %}
+          {% include 'post_preview' %}
+        {% endfor %}
+
+        <div class="page">
+          {% if prev_start_id <= max_id %}
+            <a href="?direction=backwards&start_id={{ prev_start_id }}&limit={{ limit }}">Newer</a>
+          {% else %}
+            <span></span>
+          {% endif %}
+
+          {% if next_start_id >= min_id %}
+            <a href="?direction=forwards&start_id={{ next_start_id }}&limit={{ limit }}">Older</a>
+          {% else %}
+            <span></span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

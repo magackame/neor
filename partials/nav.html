@@ -1,0 +1,19 @@
+<header id="nav">
+  <div class="links">
+    <a href="/">Home</a>
+    <a href="/switch-theme?back={{ current_url }}">Theme</a>
+
+    {% if current_user %}
+      <a href="/post/create">Post</a>
+    {% endif %}
+  </div>
+
+  {% if current_user %}
+    <div class="links">
+      <img style="flex-shrink: 0;" class="mini-pfp" src="/files/{{ current_user.mini_pfp }}" />
+      <a style="overflow-wrap: normal;" href="/user/{{ current_user.username }}">{{ current_user.username }}</a>
+    </div>
+  {% else %}
+    <a href="/sign-in?back={{ current_url }}">Sign In</a>
+  {% endif %}
+</header>
